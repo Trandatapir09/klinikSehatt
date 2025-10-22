@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('welcome', compact('doctors'));
 });
 
-// 🔐 Autentikasi
+// Keamanan
 Route::get('/login', function () {
     if (Auth::check()) {
         return redirect('/home');
@@ -39,13 +39,12 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-// 🏡 Halaman Setelah Login
 Route::get('/home', function () {
     return view('home');
 })->middleware('auth')->name('home');
 
 
-// 🩺 Area Dokter
+//Dokter
 Route::middleware(['auth'])->group(function () {
     Route::get('/doctor/dashboard', [DoctorController::class, 'dashboard'])->name('doctor.dashboard');
     Route::get('/doctor/search', [DoctorController::class, 'searchPatient'])->name('doctor.search');
@@ -64,7 +63,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-// 👩‍⚕️ Area Pasien
+//Pasien
 Route::middleware(['auth'])->group(function () {
     Route::get('/patient/dashboard', [PatientController::class, 'dashboard'])->name('patient.dashboard');
     Route::get('/patient/records', [PatientController::class, 'medicalRecords'])->name('patient.records');

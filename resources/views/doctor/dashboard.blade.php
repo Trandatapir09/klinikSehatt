@@ -9,9 +9,6 @@
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold text-primary mb-0">Dashboard Dokter</h2>
     <div>
-      <a href="{{ route('home') }}" class="btn btn-outline-secondary me-2">
-        <i class="bi bi-house-door"></i> Beranda
-      </a>
       <a href="{{ route('doctor.schedule') }}" class="btn btn-primary">
         <i class="bi bi-gear"></i> Atur Jadwal
       </a>

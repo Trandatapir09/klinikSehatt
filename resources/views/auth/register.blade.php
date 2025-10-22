@@ -58,7 +58,12 @@
             <div class="text-center mt-3">
               <small>Already have an account? <a href="/login">Login</a></small>
             </div>
-          </form>
+          </form><br>
+          <div class="text-center-mt3">
+            <a href="{{ url('/') }}" class="btn btn-outline-secondary w-100">
+              <i class="bi bi-house"></i> Kembali ke Beranda
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -18,7 +18,6 @@
     </div>
   </div>
 
-  {{-- ✅ Daftar Dokter --}}
   <div class="card shadow-sm border-0">
     <div class="card-body">
       @if($doctors->count() > 0)

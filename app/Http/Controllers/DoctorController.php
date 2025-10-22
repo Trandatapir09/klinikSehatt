@@ -14,10 +14,8 @@ class DoctorController extends Controller
 {
     $user = Auth::user();
 
-    // Ambil data dokter berdasarkan user login
     $doctor = Doctor::where('user_id', $user->id)->first();
 
-    // Ambil semua rekam medis dokter (bisa disesuaikan)
     $records = MedicalRecord::with('doctor')
         ->orderBy('created_at', 'desc')
         ->get();
@@ -48,7 +46,7 @@ class DoctorController extends Controller
     public function storeRecord(Request $request)
 {
     $request->validate([
-        'patient_id' => 'required|exists:users,id', // ✅ pastikan pasien valid
+        'patient_id' => 'required|exists:users,id',
         'complaint' => 'required',
         'diagnosis' => 'required',
         'prescription' => 'required',

@@ -9,7 +9,6 @@
   <form action="{{ route('admin.doctors.store') }}" method="POST">
     @csrf
 
-    {{-- Pilih User yang sudah terdaftar --}}
     <div class="mb-3">
       <label for="user_id" class="form-label">Pilih User</label>
       <select name="user_id" id="user_id" class="form-select" required>

@@ -26,6 +26,8 @@
       </div>
     </div>
   </div>
+  
+  </div>
 
   <div class="text-center mt-4">
     <a href="{{ route('admin.doctors') }}" class="btn btn-primary me-2">Kelola Dokter</a>

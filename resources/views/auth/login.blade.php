@@ -29,6 +29,18 @@
 
       <button type="submit" class="btn btn-primary w-100">Login</button>
     </form>
+
+            <div class="text-center mt-3">
+              <a href="{{ url('/') }}" class="btn btn-outline-secondary w-100">
+                <i class="bi bi-house"></i> Kembali ke Beranda
+              </a>
+            </div>
+
+            <p class="text-center mt-3 mb-0">
+              Belum punya akun?
+              <a href="{{ route('register.form') }}" class="text-primary text-decoration-none">Daftar Sekarang</a>
+            </p>
+
   </div>
 </div>
 
