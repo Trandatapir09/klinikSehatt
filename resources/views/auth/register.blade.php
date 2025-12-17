@@ -54,7 +54,23 @@
               </select>
             </div>
 
+            {{-- Captcha --}}
+      <div class="mb-3">
+        <label for="captcha" class="form-label">Captcha</label>
+        <div class="d-flex align-items-center">
+          <span>{!! captcha_img() !!}</span>
+          <button type="button" class="btn btn-outline-secondary ms-2" id="reload-captcha" title="Reload Captcha">
+            🔄
+          </button>
+        </div>
+        <input id="captcha" type="text" class="form-control mt-2 @error('captcha') is-invalid @enderror" name="captcha" placeholder="Masukkan captcha" required>
+        @error('captcha')
+          <small class="text-danger">{{ $message }}</small>
+        @enderror
+      </div>
+      
             <button type="submit" class="btn btn-primary w-100">Register</button>
+            
             <div class="text-center mt-3">
               <small>Already have an account? <a href="/login">Login</a></small>
             </div>
@@ -69,6 +85,20 @@
     </div>
   </div>
 </div>
+
+{{-- Script Reload Captcha --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $('#reload-captcha').click(function () {
+    $.ajax({
+      type: 'GET',
+      url: '{{ url("reload-captcha") }}',
+      success: function (data) {
+        $('span').html(data.captcha);
+      }
+    });
+  });
+</script>
 
 </body>
 </html>

@@ -1,78 +1,119 @@
 @extends('layouts.main')
 
-@section('title', 'Jadwal Dokter - Klinik Sehat')
-
 @section('content')
+<section class="hero-section d-flex align-items-center text-center text-white" 
+         style="background: url('{{ asset('images/hero-bg.png') }}') center/cover no-repeat; height: 100vh; margin-top: 0;">
+  <div class="container" data-aos="fade-up">
+    <h1 class="fw-bold mb-3">Selamat Datang di <span class="text-warning">Klinik Sehat</span></h1>
+    <p class="lead mb-4">Pelayanan Kesehatan Cepat, Ramah, dan Profesional</p>
+    <a href="{{ route('register.form') }}" class="btn btn-light btn-lg shadow">Daftar Online Sekarang</a>
+  </div>
+</section>
 
-{{-- Carousel (tetap di atas navbar) --}}
-<div id="clinicCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="{{ asset('images/carousel3.png') }}" class="d-block mx-auto rounded-4" style="max-height: 350px; width: auto;" alt="Slide 1">
-    </div>
-    <div class="carousel-item">
-      <img src="{{ asset('images/carousel2.png') }}" class="d-block mx-auto rounded-4" style="max-height: 350px; width: auto;" alt="Slide 2">
+<section class="py-5 bg-light">
+  <div class="container" data-aos="fade-right">
+    <h2 class="text-center mb-4 fw-bold text-primary">Tentang Klinik Sehat</h2>
+    <p class="text-center mx-auto" style="max-width: 700px;">
+      Klinik Sehat berdiri sejak tahun <strong>2010</strong> sebagai pusat layanan kesehatan terpercaya 
+      dengan komitmen memberikan pelayanan terbaik bagi masyarakat. Kami menghadirkan tenaga medis profesional 
+      dan fasilitas modern untuk mendukung kesehatan Anda dan keluarga.
+    </p>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container" data-aos="fade-left">
+    <h2 class="text-center mb-4 fw-bold text-primary">Visi & Misi</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <h5 class="fw-bold">Visi</h5>
+        <p>Menjadi klinik pilihan utama masyarakat dalam pelayanan kesehatan yang profesional, cepat, dan terjangkau.</p>
+      </div>
+      <div class="col-md-6">
+        <h5 class="fw-bold">Misi</h5>
+        <ul>
+          <li>Memberikan pelayanan medis berkualitas tinggi dengan empati dan kejujuran.</li>
+          <li>Mengedepankan kenyamanan serta keamanan pasien.</li>
+          <li>Mengembangkan inovasi pelayanan berbasis teknologi.</li>
+        </ul>
+      </div>
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#clinicCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#clinicCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-</div>
+</section>
 
-{{-- Section dua kolom --}}
-<div class="container my-5">
-  <div class="row g-4 align-items-start">
-
-    {{-- Kolom kiri: Riwayat singkat klinik --}}
-    <div class="col-lg-6">
-      <h3 class="text-primary fw-bold mb-3">🏥 Tentang Klinik Sehat</h3>
-      <p class="text-muted">
-        Klinik Sehat berdiri sejak tahun <strong>2010</strong> dan berkomitmen untuk memberikan pelayanan kesehatan yang cepat, ramah, dan profesional.
-        Dengan tim dokter berpengalaman dan fasilitas modern, kami berupaya menjaga kesehatan masyarakat dengan sepenuh hati.
-      </p>
-      <p class="text-muted">
-        Kami melayani berbagai pemeriksaan umum, gigi, dan spesialis dengan jadwal yang fleksibel.
-        Setiap pasien akan mendapatkan perawatan terbaik sesuai kebutuhan medisnya.
-      </p>
+<section class="py-5 bg-light" id="doctors">
+  <div class="container">
+    <div class="text-center mb-5"  data-aos="fade-up">
+      <h2 class="fw-bold text-primary">Tim Dokter Kami</h2>
+      <p class="text-muted">Dokter berpengalaman dan profesional siap membantu Anda</p>
     </div>
-
-    {{-- Kolom kanan: Jadwal Dokter --}}
-    <div class="col-lg-6">
-      <h3 class="text-primary text-center mb-3">🩺 Jadwal Dokter</h3>
-      @if(isset($doctors) && count($doctors) > 0)
-        <div class="table-responsive shadow rounded-3">
-          <table class="table table-striped table-hover align-middle">
-            <thead class="table-primary text-center">
-              <tr>
-                <th>Nama Dokter</th>
-                <th>Spesialisasi</th>
-                <th>Hari</th>
-                <th>Jam</th>
-              </tr>
-            </thead>
-            <tbody class="text-center">
-              @foreach($doctors as $doctor)
-                <tr>
-                  <td class="fw-semibold">{{ $doctor->name }}</td>
-                  <td>{{ $doctor->specialization }}</td>
-                  <td>{{ $doctor->day }}</td>
-                  <td>{{ $doctor->start_time }} - {{ $doctor->end_time }}</td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
+    <div class="row justify-content-center">
+      @forelse ($doctors as $doctor)
+        <div class="col-md-4 col-lg-3 mb-4"  data-aos="fade-up">
+          <div class="card shadow-sm border-0 h-100">
+            <img src="{{ asset('storage/' . $doctor->photo) }}" class="card-img-top" alt="{{ $doctor->name }}" style="height: 220px; object-fit: cover;">
+            <div class="card-body text-center">
+              <h5 class="card-title mb-0">{{ $doctor->name }}</h5>
+              <small class="text-muted">{{ $doctor->specialization }}</small>
+            </div>
+          </div>
         </div>
-      @else
-        <div class="alert alert-warning text-center mt-4">
-          Belum ada jadwal dokter saat ini.
-        </div>
-      @endif
+      @empty
+        <p class="text-center text-muted">Belum ada dokter yang terdaftar.</p>
+      @endforelse
     </div>
-
   </div>
-</div>
+</section>
 
+<section class="py-5" id="schedule" style="background-color: #f8f9fa;">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <h2 class="fw-bold text-primary">Jadwal Praktik Dokter</h2>
+      <p class="text-muted">Cek jadwal dokter kami untuk pelayanan terbaik</p>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover shadow-sm align-middle" data-aos="fade-up">
+        <thead class="table-primary text-center">
+          <tr>
+            <th>Nama Dokter</th>
+            <th>Spesialisasi</th>
+            <th>Hari Praktik</th>
+            <th>Jam</th>
+          </tr>
+        </thead>
+        <tbody>
+          @forelse ($doctors as $doctor)
+            <tr>
+              <td>{{ $doctor->name }}</td>
+              <td>{{ $doctor->specialization }}</td>
+              <td>{{ $doctor->day }}</td>
+              <td>
+                @if ($doctor->start_time && $doctor->end_time)
+                  {{ \Carbon\Carbon::parse($doctor->start_time)->format('H:i') }}
+                  -
+                  {{ \Carbon\Carbon::parse($doctor->end_time)->format('H:i') }}
+                @else
+                  08:00 - 15:00
+                @endif
+              </td>
+            </tr>
+          @empty
+            <tr>
+              <td colspan="5" class="text-center text-muted">Belum ada jadwal dokter yang tersedia.</td>
+            </tr>
+          @endforelse
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="text-white py-4 mt-5" style="background-color: #004da5ff;">
+  <div class="container text-center">
+    <p class="mb-1 fw-bold">🏥 Klinik Sehat</p>
+    <p class="mb-0">Jl. Sehat No. 123, Jakarta | Telp: (021) 123-4567 | Email: info@kliniksehat.id</p>
+    <small>&copy; {{ date('Y') }} Klinik Sehat. All rights reserved.</small>
+  </div>
+</footer>
 @endsection

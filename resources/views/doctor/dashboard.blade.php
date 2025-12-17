@@ -37,7 +37,7 @@
 
       {{-- Detail Dokter --}}
       <div class="flex-grow-1">
-        <h4 class="mb-1 text-dark">{{ $doctor->name }}</h4>
+        <h4 class="mb-1 text-dark">{{ $doctor->name ?? 'Dokter' }}</h4>
         <p class="text-muted mb-2"><i class="bi bi-person-badge"></i> {{ $doctor->specialization }}</p>
         <p class="mb-1"><strong>Jadwal:</strong> {{ $doctor->day }} ({{ $doctor->start_time }} - {{ $doctor->end_time }})</p>
         <p class="mb-1"><strong>Status:</strong> 
@@ -57,6 +57,10 @@
       </div>
     </div>
   </div>
+
+  <a href="{{ route('doctor.appointments') }}" class="btn btn-primary mb-3">
+    📋 Lihat Daftar Antrian Pasien
+</a>
 
   {{-- 🔍 Cari Pasien --}}
   <div class="card shadow-sm border-0">

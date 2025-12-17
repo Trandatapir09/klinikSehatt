@@ -5,6 +5,18 @@
   <h3 class="mb-4 text-center">Selamat Datang, {{ $user->name }}</h3>
 
   <div class="row justify-content-center">
+
+  <div class="card mt-4">
+    <div class="card-body text-center">
+        <h5 class="card-title">Pendaftaran Online</h5>
+        <p class="card-text">Daftar antrian pemeriksaan dengan cepat dan mudah.</p>
+
+        <a href="{{ route('appointment.create') }}" class="btn btn-primary btn-lg">
+            Daftar Periksa
+        </a>
+    </div>
+</div>
+
     {{-- 🔹 Kartu Riwayat Medis --}}
     <div class="col-md-4">
       <div class="card shadow-sm border-0">

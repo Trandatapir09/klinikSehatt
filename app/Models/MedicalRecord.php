@@ -18,6 +18,7 @@ class MedicalRecord extends Model
         'examination_date'
     ];
 
+    
     public function doctor()
     {
         return $this->belongsTo(User::class, 'doctor_id');

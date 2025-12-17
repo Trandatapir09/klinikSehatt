@@ -32,7 +32,8 @@
   <div class="text-center mt-4">
     <a href="{{ route('admin.doctors') }}" class="btn btn-primary me-2">Kelola Dokter</a>
     <a href="{{ route('admin.patients') }}" class="btn btn-success me-2">Kelola Pasien</a>
-    <a href="{{ route('admin.reports') }}" class="btn btn-outline-dark">Laporan</a>
+    <a href="{{ route('admin.reports.medical') }}" class="btn btn-dark me-2">laporan</a>
+
   </div>
 </div>
 @endsection

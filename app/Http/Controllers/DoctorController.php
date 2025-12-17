@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Doctor;
 use App\Models\User;
 use App\Models\MedicalRecord;
+use App\Models\Transaction;
+use App\Models\Appointment;
 
 class DoctorController extends Controller
 {
@@ -147,5 +149,46 @@ public function updateSchedule(Request $request)
 
     return redirect()->route('doctor.schedule')->with('success', 'Jadwal berhasil diperbarui.');
 }
+
+    public function appointments(Request $request)
+    {
+        $user = auth()->user();
+        $doctor = Doctor::where('user_id', $user->id)->first();
+
+        if (!$doctor) {
+            return back()->with('error', 'Data dokter tidak ditemukan.');
+        }
+
+        $date = $request->input('date', date('Y-m-d'));
+
+        $appointments = \App\Models\Appointment::where('doctor_id', $doctor->id)
+            ->where('appointment_date', $date)
+            ->with('patient')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('doctor.appointments', compact('appointments', 'date'));
+    }
+
+    public function complete($id)
+{
+    $appointment = Appointment::findOrFail($id);
+
+    $appointment->update([
+        'status' => 'completed'
+    ]);
+
+    Transaction::create([
+        'appointment_id' => $appointment->id,
+        'patient_id' => $appointment->patient_id,
+        'doctor_id' => $appointment->doctor_id,
+        'status' => 'paid',
+        'transaction_date' => now()->toDateString()
+    ]);
+
+    return back()->with('success', 'Appointment selesai & transaksi tercatat');
+}
+
+
 
 }

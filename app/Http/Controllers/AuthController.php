@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Mews\Captcha\Facades\Captcha;
 
 class AuthController extends Controller
 {
@@ -19,7 +20,6 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    // Handle Register Form
     public function register(Request $request)
     {
         $request->validate([
@@ -39,25 +39,31 @@ class AuthController extends Controller
         return redirect('/login')->with('success', 'Registration successful! Please login.');
     }
 
-    // Handle login request
-   public function login(Request $request)
+public function login(Request $request)
 {
-    $credentials = $request->validate([
+    $request->validate([
         'email' => ['required', 'email'],
         'password' => ['required'],
+        'captcha' => ['required', 'captcha'],
+    ], [
+        'captcha.captcha' => 'Captcha salah, coba lagi.',
     ]);
+
+    $credentials = $request->only('email', 'password');
 
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
         $user = Auth::user();
 
-        // Arahkan sesuai role
-        if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard');
-        } elseif ($user->role === 'doctor') {
-            return redirect()->route('doctor.dashboard');
-        } elseif ($user->role === 'patient') {
-            return redirect()->route('patient.dashboard');
+        switch ($user->role) {
+            case 'admin':
+                return redirect()->route('admin.dashboard');
+            case 'doctor':
+                return redirect()->route('doctor.dashboard');
+            case 'patient':
+                return redirect()->route('patient.dashboard');
+            default:
+                return redirect()->route('home');
         }
     }
 
