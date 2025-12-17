@@ -29,18 +29,14 @@ class ProfileController extends Controller
     ]);
 
     if ($request->hasFile('photo')) {
-        // Simpan foto baru
         $photoPath = $request->file('photo')->store('profile_photos', 'public');
 
-        // Hapus foto lama jika ada
         if ($user->photo) {
             Storage::disk('public')->delete($user->photo);
         }
 
-        // Update kolom photo di tabel users
         $user->photo = $photoPath;
 
-        // 🩺 Update juga kolom photo di tabel doctors (jika user adalah dokter)
         if ($user->role === 'doctor') {
             $doctor = Doctor::where('user_id', $user->id)->first();
             if ($doctor) {

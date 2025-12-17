@@ -60,11 +60,9 @@ class AppointmentController extends Controller
 
     $appointment = Appointment::findOrFail($id);
 
-    // Update status appointment
     $appointment->status = $request->status;
     $appointment->save();
 
-    // JIKA STATUS SELESAI → SIMPAN KE TRANSAKSI
     if ($request->status === 'completed') {
 
         // Cegah double transaksi
@@ -110,7 +108,6 @@ class AppointmentController extends Controller
 {
     $doctor = Doctor::findOrFail($id);
 
-    // Hitung jumlah antrian hari ini
     $today = now()->format('Y-m-d');
 
     $queue = Appointment::where('doctor_id', $id)

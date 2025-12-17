@@ -8,7 +8,6 @@
         <form action="{{ route('appointment.store') }}" method="POST">
             @csrf
 
-            <!-- Pilih Dokter -->
             <div class="mb-3">
                 <label class="form-label">Pilih Dokter</label>
                 <select name="doctor_id" id="doctor_select" class="form-select" required>
@@ -21,7 +20,6 @@
                 </select>
             </div>
 
-            <!-- Informasi Dokter -->
             <div id="doctor_info" class="alert alert-info d-none">
                 <h5 id="doc_name"></h5>
                 <p><strong>Spesialis:</strong> <span id="doc_spec"></span></p>
@@ -31,13 +29,11 @@
                 <p><strong>Jumlah Antrian Hari Ini:</strong> <span id="doc_queue"></span></p>
             </div>
 
-            <!-- Tanggal -->
             <div class="mb-3">
                 <label class="form-label">Tanggal Periksa</label>
                 <input type="date" class="form-control" name="appointment_date" required>
             </div>
 
-            <!-- Jam -->
             <div class="mb-3">
                 <label class="form-label">Jam Periksa</label>
                 <select name="time_range" id="time_select" class="form-select" required>
